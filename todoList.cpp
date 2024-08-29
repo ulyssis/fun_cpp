@@ -13,30 +13,40 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "Caesarcipher.h"
+
 using namespace std;
 class TodoList
 {
 private:
     vector<string> tasks;
+    bool initialized;
 
 public:
     TodoList(); // initililze tasks from file
     void add(const string &string);
     void remove(const string &string);
     void showTasks() const;
-    void updateTasks(); // update file with tasks
+    void updateTasks(); // update file with tasks, is called at the end of TodoApp::run()
 };
 
 // constructor
-TodoList::TodoList()
+TodoList::TodoList() : initialized(false)
 {
     string task;
     ifstream inputFile("Tasks.txt");
+    if (!inputFile.is_open())
+    {
+        cerr << "Error: Could not open the file 'Tasks.txt'." << endl;
+        return;
+    }
+
     while (getline(inputFile, task))
     {
         tasks.push_back(task);
     }
     inputFile.close();
+    initialized = true;
 }
 
 void TodoList::updateTasks()
@@ -95,10 +105,15 @@ class TodoApp
 {
 private:
     TodoList todoList;
+    Caesarcipher ciper;
 
 public:
     void run();
 };
+
+// TodoApp::TodoApp(){
+
+// }
 
 void TodoApp::run()
 {
@@ -149,5 +164,8 @@ int main()
 {
     TodoApp todoApp;
     todoApp.run();
+    Caesarcipher ciper;
+    ciper.runCaesar();
+
     return 0;
 }
