@@ -4,3 +4,6 @@ https://hackr.io/blog/cpp-projects
 Project 1:
 a todo-list with encryption feature.
 compilation: g++ -std=c++11 todoList.cpp Caesarcipher.cpp
+
+Project 2:
+a calcualtor which is capable of +-*/
